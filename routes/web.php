@@ -25,26 +25,26 @@ Route::group(['prefix' => 'regular','middleware' => 'auth'], function() {
     Route::get('calendar/nextmonth', 'Regular\CalendarController@nextmonth');
     Route::get('calendar/prevmonth', 'Regular\CalendarController@prevmonth');
     //イベントコントローラー
-    Route::get('event/create', 'EventController@add');
-    Route::post('event/create', 'EventController@create');
-    Route::get('event/show', 'EventController@show');
-    Route::get('event/edit', 'EventController@edit');
-    Route::post('event/edit', 'EventController@update');
-    Route::get('event/delete', 'EventController@delete');
+    Route::get('event/create', 'Regular\EventController@add');
+    Route::post('event/create', 'Regular\EventController@create');
+    Route::get('event/show', 'Regular\EventController@show');
+    Route::get('event/edit', 'Regular\EventController@edit');
+    Route::post('event/edit', 'Regular\EventController@update');
+    Route::get('event/delete', 'Regular\EventController@delete');
     //家計簿コントローラー
-    Route::get('expenses/create', 'ExpensesController@add');
-    Route::post('expenses/create', 'ExpensesController@create');
-    Route::get('expenses/show', 'ExpensesController@show');
-    Route::get('expenses/edit', 'ExpensesController@edit');
-    Route::post('expenses/edit', 'ExpensesController@update');
-    Route::get('expenses/delete', 'ExpensesController@delete');
+    Route::get('expenses/create', 'Regular\ExpensesController@add');
+    Route::post('expenses/create', 'Regular\ExpensesController@create');
+    Route::get('expenses/show', 'Regular\ExpensesController@show');
+    Route::get('expenses/edit', 'Regular\ExpensesController@edit');
+    Route::post('expenses/edit', 'Regular\ExpensesController@update');
+    Route::get('expenses/delete', 'Regular\ExpensesController@delete');
     //todoコントローラー
-    Route::get('todo/create', 'TodoController@add');
-    Route::post('todo/create', 'TodoController@create');
-    Route::get('todo/show', 'TodoController@show');
-    Route::get('todo/edit', 'TodoController@edit');
-    Route::post('todo/update', 'TodoController@update');
-    Route::get('todo/delete', 'TodoController@delete');
+    Route::get('todo/create', 'Regular\TodoController@add');
+    Route::post('todo/create', 'Regular\TodoController@create');
+    Route::get('todo/show', 'Regular\TodoController@show');
+    Route::get('todo/edit', 'Regular\TodoController@edit');
+    Route::post('todo/update', 'Regular\TodoController@update');
+    Route::get('todo/delete', 'Regular\TodoController@delete');
 });
 Auth::routes();
 
