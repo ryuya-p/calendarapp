@@ -32,12 +32,12 @@ Route::group(['prefix' => 'regular','middleware' => 'auth'], function() {
     Route::post('event/edit', 'Regular\EventController@update');
     Route::get('event/delete', 'Regular\EventController@delete');
     //家計簿コントローラー
-    Route::get('expenses/create', 'Regular\ExpensesController@add');
-    Route::post('expenses/create', 'Regular\ExpensesController@create');
-    Route::get('expenses/show', 'Regular\ExpensesController@show');
-    Route::get('expenses/edit', 'Regular\ExpensesController@edit');
-    Route::post('expenses/edit', 'Regular\ExpensesController@update');
-    Route::get('expenses/delete', 'Regular\ExpensesController@delete');
+    Route::get('expens/create', 'Regular\ExpensController@add');
+    Route::post('expens/create', 'Regular\ExpensController@create');
+    Route::get('expens/show', 'Regular\ExpensController@show');
+    Route::get('expens/edit', 'Regular\ExpensController@edit');
+    Route::post('expens/edit', 'Regular\ExpensController@update');
+    Route::get('expens/delete', 'Regular\ExpensController@delete');
     //todoコントローラー
     Route::get('todo/create', 'Regular\TodoController@add');
     Route::post('todo/create', 'Regular\TodoController@create');

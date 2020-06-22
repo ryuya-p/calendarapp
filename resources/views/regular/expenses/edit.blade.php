@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', '家計簿作成')
+@section('title', '家計簿編集')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>家計簿作成</h2>
-                <form action="{{ action('Regular\ExpensController@create') }}" method="post" enctype="multipart/form-data">
+                <h2>家計簿編集</h2>
+                <form action="{{ action('Regular\ExpensController@edit') }}?id={{$form->id}}" method="post" enctype="multipart/form-data">
 
                     @if (count($errors) > 0)
                         <ul>
@@ -19,29 +19,25 @@
                     <div class="form-group row">
                         <label class="col-md-2">カテゴリー</label>
                         <div class="col-md-10">
-                            <select name="category_id" class="form-control" >
-                                @foreach($categories as $i => $category)
-                                <option value="{{$i}}">{{$category['name']}}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="title" value="{{ $form->title }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">日時</label>
                         <div class="col-md-10">
-                            <input type="date" class="form-control" name="date" value="{{ old('date') }}">
+                            <input type="datetime-local" class="form-control" name="date" value="{{ $form->date }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">詳細</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="details" rows="20">{{ old('details') }}</textarea>
+                            <input type="datetime-local" class="form-control" name="notification" value="{{ $form->notification }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">金額</label>
                          <div class="col-md-10">
-                            <input type="text" class="form-control" name="money" value="{{ old('money') }}">
+                            <input type="text" class="form-control" name="place" value="{{ $form->place }}">
                         </div>
                     </div>
                     {{ csrf_field() }}

@@ -4,32 +4,35 @@ namespace App\Http\Controllers\Regular;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Expens;
 use Illuminate\Support\Facades\Auth;
-use App\Event;
+use App\Category;
+use Config;
 
-class EventController extends Controller
+class ExpensController extends Controller
 {
     public function add()
     {
-        return view('regular.event.create');
+        $Categories = __('define.expens_category');
+        return view('regular.expenses.create',['categories' => $Categories ]);
     }
 
-    public function show(Request $request)
+   public function show(Request $request)
     {
-    $event = Event::find($request->id);
-      if (empty($event)) {
+    $expens = Expens::find($request->id);
+      if (empty($expens)) {
         abort(404);    
       }
-      return view('regular.event.show', ['form' => $event]);
+      return view('regular.expenses.show', ['form' => $expens]);
     }
-    
-    public function create(Request $request)
+   
+   public function create(Request $request)
     {
         // Varidationを行う
-        $this->validate($request, Event::$rules);
+        $this->validate($request, Expens::$rules);
         
         // モデルのインスタンスを生成する
-        $Event = new Event;
+        $Expenses = new Expens;
         // リクエストのパラメーターを連想配列に変換して$formに入れる
         $form = $request->all();
     
@@ -38,36 +41,35 @@ class EventController extends Controller
         unset($form['image']);
         
         // データベースに保存する
-        $Event->user_id = Auth::id();
-        $Event->fill($form);
-        $Event->save();
+        $Expenses->fill($form);
+        $Expenses->user_id = Auth::id();
+        $Expenses->save();
     
-        return redirect('regular/event/create');
+        return redirect('regular/calendar');
     }
-
+    
     public function edit(Request $request)
   {
       // News Modelからデータを取得する
-      $data = Event::find($request->id);
+      $data = Expens::find($request->id);
       if (empty($data)) {
         abort(404);    
       }
-      return view('regular.event.edit', ['form' => $data]);
+      return view('regular.expenses.edit', ['form' => $data]);
   }
-
-
+  
   public function update(Request $request)
   {
       // Validationをかける
-      $this->validate($request, Event::$rules);
+      $this->validate($request, Expens::$rules);
       // News Modelからデータを取得する
-      $event = Event::find($request->id);
+      $expens = Expens::find($request->id);
       // 送信されてきたフォームデータを格納する
-      $event_form = $request->all();
-      unset($event_form['_token']);
+      $expens_form = $request->all();
+      unset($expens_form['_token']);
 
       // 該当するデータを上書きして保存する
-      $event->fill($event_form)->save();
+      $expens->fill($expens_form)->save();
 
       return redirect('regular/calendar');
   }
@@ -75,9 +77,9 @@ class EventController extends Controller
   public function delete(Request $request)
   {
       // 該当するNews Modelを取得
-      $event = Event::find($request->id);
+      $expens = Expens::find($request->id);
       // 削除する
-      $event->delete();
+      $expens->delete();
       return redirect('regular/calendar/');
   }
 }

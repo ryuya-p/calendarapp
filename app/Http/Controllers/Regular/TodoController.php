@@ -4,12 +4,23 @@ namespace App\Http\Controllers\Regular;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Todo;
 
 class TodoController extends Controller
 {
     public function add()
     {
         return view('regular.todo.create');
+    }
+
+    public function show(Request $request)
+    {
+    $todo = Todo::find($request->id);
+      if (empty($todo)) {
+        abort(404);    
+      }
+      return view('regular.todo.show', ['form' => $todo]);
     }
 
    public function create(Request $request)
@@ -28,8 +39,19 @@ class TodoController extends Controller
         
         // データベースに保存する
         $Todo->fill($form);
+        $Todo->user_id = Auth::id();
         $Todo->save();
     
         return redirect('regular/calendar');
     }
+    
+    public function edit(Request $request)
+  {
+      // News Modelからデータを取得する
+      $data = Todo::find($request->id);
+      if (empty($data)) {
+        abort(404);    
+      }
+      return view('regular.todo.edit', ['form' => $data]);
+  }
 }

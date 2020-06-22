@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'プロフィール作成')
+@section('title', '予定新規作成')
 
 @section('content')
     <div class="container">
@@ -25,7 +25,9 @@
                     <div class="form-group row">
                         <label class="col-md-2">日時</label>
                         <div class="col-md-10">
-                            <input type="datetime-local" class="form-control" name="date" value="{{ old('date') }}">
+                            <input type="date" class="form-control" name="date" value="{{ old('date') }}">
+                            <input type="time" class="form-control" name="hour" value="{{ old('hour') }}">
+                            
                         </div>
                     </div>
                     <div class="form-group row">
@@ -47,7 +49,7 @@
                         </div>
                     </div>
                     {{ csrf_field() }}
-                    <input type="submit" class="btn btn-primary" value="更新">
+                    <input type="submit" class="btn btn-primary" value="保存">
                 </form>
             </div>
         </div>

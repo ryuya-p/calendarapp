@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Regular;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Event;
+use App\Expens;
+use App\Todo;
 
 class CalendarController extends Controller
 {
@@ -12,8 +15,15 @@ class CalendarController extends Controller
     {    
         $dt = Carbon::now();
         $dates = $this->getCalendarDates($dt->year, $dt->month);
-        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year]);
+        $Events = Event::GetIndexRows( $dt->year, $dt->month );        
+        $Todos = Todo::GetIndexRows( $dt->year, $dt->month );
+        $Expenses = Expens::GetIndexRows( $dt->year, $dt->month );
+        $def['expens_cat'] = __('define.expens_category');
+        $summary = $this->expensSummary($dt->year, $dt->month);
+        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos , 'def' => $def, 'summary' => $summary]);
+        
     }
+    
     public function nextmonth(Request $request)
     {
         $month = $request->month;
@@ -21,8 +31,12 @@ class CalendarController extends Controller
         $dt = Carbon::create($year , $month , 1 , 1 , 0 , 0 , 0);
         $dt->addMonth();
         $dates = $this->getCalendarDates($dt->year, $dt->month);
-        return view('regular.calendar.index',['dates' => $dates, 'currentYear' => $dt->year, 'currentMonth' => $dt->month]);
+        $Events = (new Event ) -> get();
+        $Todos = (new Todo ) -> get();
+        $Expenses = (new Expens ) -> get();
+        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos]);
     }
+    
     public function prevmonth(Request $request)
     {
         $month = $request->month;
@@ -30,8 +44,12 @@ class CalendarController extends Controller
         $dt = Carbon::create($year , $month , 1 , 1 , 0 , 0 , 0);
         $dt->subMonth();
         $dates = $this->getCalendarDates($dt->year, $dt->month);
-        return view('regular.calendar.index',['dates' => $dates, 'currentYear' => $dt->year, 'currentMonth' => $dt->month]);
+         $Events = (new Event ) -> get();
+         $Todos = (new Todo ) -> get();
+         $Expenses = (new Expens ) -> get();
+        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos]);
     }
+    
     public function getCalendarDates($year, $month)
     {
         $dateStr = sprintf('%04d-%02d-01', $year, $month);
@@ -48,5 +66,15 @@ class CalendarController extends Controller
             $dates[] = $date->copy();
         }
         return $dates;
+    }
+    
+    public function expensSummary($year, $month)
+    {
+       $rows=Expens::getCategorySummary($year, $month);
+       $ret = [];
+        foreach( $rows as $v ) {
+	        $ret[$v->category_id] = $v->money;
+        }
+        return $ret;
     }
 }

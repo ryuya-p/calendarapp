@@ -17,8 +17,9 @@ class CreateTodosTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('title');
-            $table->datetime('date');
-            $table->integer('important_id');
+            $table->date('date');
+            $table->time('hour');
+            $table->string('important');
             $table->datetime('notification');
             $table->string('place');
             $table->string('note');
