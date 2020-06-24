@@ -18,7 +18,7 @@ class CreateExpensesTable extends Migration
             $table->integer('user_id');
             $table->integer('category_id');
             $table->date('date');
-            $table->string('details');
+            $table->string('details')->nullable();
             $table->integer('money');
             $table->timestamps();
         });

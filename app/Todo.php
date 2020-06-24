@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Todo extends Model
 {
@@ -29,8 +30,7 @@ class Todo extends Model
     		->where( 'date', '>=', $target_begin_date )
     		//処理月の終了日
     		->where( 'date', '<=', $target_end_date )
-    		//削除フラグ
-    		//->where(  'alive', 1)
+    	    ->where('user_id',Auth::id())
     		->get();
     	/*
     	$rows = self::where( 'date', '>=', $target_begin_date )

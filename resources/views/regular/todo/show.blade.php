@@ -42,11 +42,11 @@
                        <label for="radio01" class="col-md-2">重要</label>
                        <div class="col-md-6">
                           <div class="form-check form-check-inline">
-                             <input class="form-check-input" type="radio" name="important" value="○" readonly>
+                             <input class="form-check-input" type="radio" name="important" value="○" @if( $form->important == "○" ) checked="checked" @endif disabled="true">
                              <label class="form-check-label" for="inlineRadio01">○</label>
                           </div>
                           <div class="form-check form-check-inline">
-                             <input class="form-check-input" type="radio" name="important" value="☓" checked="checked">
+                             <input class="form-check-input" type="radio" name="important" value="☓" @if( $form->important == "☓" ) checked="checked" @endif disabled="true">
                              <label class="form-check-label" for="inlineRadio02">☓</label>
                           </div>
                        </div>

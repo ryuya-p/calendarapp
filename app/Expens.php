@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Expens extends Model
 {
@@ -29,8 +30,7 @@ class Expens extends Model
     		->where( 'date', '>=', $target_begin_date )
     		//処理月の終了日
     		->where( 'date', '<=', $target_end_date )
-    		//削除フラグ
-    		//->where(  'alive', 1)
+    		->where('user_id',Auth::id())
     		->get();
     	/*
     	$rows = self::where( 'date', '>=', $target_begin_date )
@@ -67,6 +67,7 @@ class Expens extends Model
 		->groupby('category_id')
 		->where('date', '>=', $target_begin_date )
 		->where('date', '<=', $target_end_date)
+		->where('user_id',Auth::id())
 		->get();
 }
 }

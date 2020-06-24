@@ -23,7 +23,8 @@ class ExpensController extends Controller
       if (empty($expens)) {
         abort(404);    
       }
-      return view('regular.expenses.show', ['form' => $expens]);
+      $Categories = __('define.expens_category');
+      return view('regular.expenses.show', ['form' => $expens, 'categories' => $Categories]);
     }
    
    public function create(Request $request)
@@ -55,7 +56,8 @@ class ExpensController extends Controller
       if (empty($data)) {
         abort(404);    
       }
-      return view('regular.expenses.edit', ['form' => $data]);
+      $Categories = __('define.expens_category');
+      return view('regular.expenses.edit', ['form' => $data, 'categories' => $Categories]);
   }
   
   public function update(Request $request)
@@ -71,7 +73,7 @@ class ExpensController extends Controller
       // 該当するデータを上書きして保存する
       $expens->fill($expens_form)->save();
 
-      return redirect('regular/calendar');
+      return redirect('regular/calendar/');
   }
   
   public function delete(Request $request)

@@ -18,10 +18,10 @@ class CreateEventsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->date('date');
-            $table->time('hour');
-            $table->dateTime('notification');
-            $table->string('place');
-            $table->string('note');
+            $table->time('hour')->nullable();
+            $table->dateTime('notification')->nullable();
+            $table->string('place')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

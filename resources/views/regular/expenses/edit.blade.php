@@ -19,25 +19,29 @@
                     <div class="form-group row">
                         <label class="col-md-2">カテゴリー</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="title" value="{{ $form->title }}">
+                            <select name="category_id" class="form-control">
+                                @foreach($categories as $i => $category)
+                                <option value="{{$i}}" @if( $form->category_id == $i ) selected="selected" @endif>{{$category['name']}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">日時</label>
                         <div class="col-md-10">
-                            <input type="datetime-local" class="form-control" name="date" value="{{ $form->date }}">
+                            <input type="date" class="form-control" name="date" value="{{ $form->date }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">詳細</label>
                         <div class="col-md-10">
-                            <input type="datetime-local" class="form-control" name="notification" value="{{ $form->notification }}">
+                            <textarea class="form-control" name="details" rows="20">{{ $form->details }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">金額</label>
                          <div class="col-md-10">
-                            <input type="text" class="form-control" name="place" value="{{ $form->place }}">
+                            <input type="text" class="form-control" name="money" value="{{ $form->money }}">
                         </div>
                     </div>
                     {{ csrf_field() }}

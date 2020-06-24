@@ -17,33 +17,31 @@
                         </ul>
                     @endif
                     <div class="form-group row">
-                        <label class="col-md-2">タイトル</label>
+                        <label class="col-md-2">カテゴリー</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="title" value="{{ $form->title }}" readonly>
+                            <select name="category_id" class="form-control" disabled="true">
+                                @foreach($categories as $i => $category)
+                                <option value="{{$i}}" @if( $form->category_id == $i ) selected="selected" @endif>{{$category['name']}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">日時</label>
                         <div class="col-md-10">
-                            <input type="datetime-local" class="form-control" name="date" value="{{ $form->date }}" readonly>
+                            <input type="date" class="form-control" name="date" value="{{ $form->date }}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">通知</label>
+                        <label class="col-md-2">詳細</label>
                         <div class="col-md-10">
-                            <input type="datetime-local" class="form-control" name="notification" value="{{ $form->notification }}" readonly>
+                            <textarea class="form-control" name="details" rows="20" readonly>{{ $form->details }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">場所</label>
+                        <label class="col-md-2">金額</label>
                          <div class="col-md-10">
-                            <input type="text" class="form-control" name="place" value="{{ $form->place }}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2">メモ</label>
-                         <div class="col-md-10">
-                            <textarea class="form-control" name="note" rows="20" readonly>{{ $form->note }}</textarea>
+                            <input type="text" class="form-control" name="money" value="{{ $form->money }}" readonly>
                         </div>
                     </div>
                     {{ csrf_field() }}

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="/regular/calendar">カレンダー</a>
                 </div>
             </div>
         </div>

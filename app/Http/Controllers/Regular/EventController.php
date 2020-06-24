@@ -42,7 +42,7 @@ class EventController extends Controller
         $Event->fill($form);
         $Event->save();
     
-        return redirect('regular/event/create');
+        return redirect('regular/calendar');
     }
 
     public function edit(Request $request)
@@ -54,7 +54,6 @@ class EventController extends Controller
       }
       return view('regular.event.edit', ['form' => $data]);
   }
-
 
   public function update(Request $request)
   {
@@ -69,7 +68,7 @@ class EventController extends Controller
       // 該当するデータを上書きして保存する
       $event->fill($event_form)->save();
 
-      return redirect('regular/calendar');
+      return redirect('regular/calendar/');
   }
   
   public function delete(Request $request)

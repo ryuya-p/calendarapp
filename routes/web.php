@@ -43,7 +43,7 @@ Route::group(['prefix' => 'regular','middleware' => 'auth'], function() {
     Route::post('todo/create', 'Regular\TodoController@create');
     Route::get('todo/show', 'Regular\TodoController@show');
     Route::get('todo/edit', 'Regular\TodoController@edit');
-    Route::post('todo/update', 'Regular\TodoController@update');
+    Route::post('todo/edit', 'Regular\TodoController@update');
     Route::get('todo/delete', 'Regular\TodoController@delete');
 });
 Auth::routes();

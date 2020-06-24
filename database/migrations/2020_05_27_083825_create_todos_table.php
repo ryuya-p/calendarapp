@@ -17,12 +17,12 @@ class CreateTodosTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('title');
-            $table->date('date');
-            $table->time('hour');
+            $table->date('date')->nullable();
+            $table->time('hour')->nullable();
             $table->string('important');
-            $table->datetime('notification');
-            $table->string('place');
-            $table->string('note');
+            $table->datetime('notification')->nullable();
+            $table->string('place')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

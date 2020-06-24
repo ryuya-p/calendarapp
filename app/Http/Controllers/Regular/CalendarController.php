@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Event;
 use App\Expens;
 use App\Todo;
+use Auth;
 
 class CalendarController extends Controller
 {
@@ -16,7 +17,7 @@ class CalendarController extends Controller
         $dt = Carbon::now();
         $dates = $this->getCalendarDates($dt->year, $dt->month);
         $Events = Event::GetIndexRows( $dt->year, $dt->month );        
-        $Todos = Todo::GetIndexRows( $dt->year, $dt->month );
+        $Todos = Todo::where('user_id',Auth::id())->Get();
         $Expenses = Expens::GetIndexRows( $dt->year, $dt->month );
         $def['expens_cat'] = __('define.expens_category');
         $summary = $this->expensSummary($dt->year, $dt->month);
@@ -31,10 +32,12 @@ class CalendarController extends Controller
         $dt = Carbon::create($year , $month , 1 , 1 , 0 , 0 , 0);
         $dt->addMonth();
         $dates = $this->getCalendarDates($dt->year, $dt->month);
-        $Events = (new Event ) -> get();
-        $Todos = (new Todo ) -> get();
-        $Expenses = (new Expens ) -> get();
-        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos]);
+        $Events = Event::GetIndexRows( $dt->year, $dt->month );        
+        $Todos = Todo::where('user_id',Auth::id())->Get();
+        $Expenses = Expens::GetIndexRows( $dt->year, $dt->month );
+        $def['expens_cat'] = __('define.expens_category');
+        $summary = $this->expensSummary($dt->year, $dt->month);
+        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos, 'def' => $def, 'summary' => $summary ]);
     }
     
     public function prevmonth(Request $request)
@@ -44,10 +47,12 @@ class CalendarController extends Controller
         $dt = Carbon::create($year , $month , 1 , 1 , 0 , 0 , 0);
         $dt->subMonth();
         $dates = $this->getCalendarDates($dt->year, $dt->month);
-         $Events = (new Event ) -> get();
-         $Todos = (new Todo ) -> get();
-         $Expenses = (new Expens ) -> get();
-        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos]);
+        $Events = Event::GetIndexRows( $dt->year, $dt->month );        
+        $Todos = Todo::where('user_id',Auth::id())->Get();
+        $Expenses = Expens::GetIndexRows( $dt->year, $dt->month );
+        $def['expens_cat'] = __('define.expens_category');
+        $summary = $this->expensSummary($dt->year, $dt->month);
+        return view('regular.calendar.index', ['dates' => $dates, 'currentMonth' => $dt->month, 'currentYear' => $dt->year, 'Events' => $Events, 'Expenses' => $Expenses, 'Todos' => $Todos, 'def' => $def, 'summary' => $summary]);
     }
     
     public function getCalendarDates($year, $month)

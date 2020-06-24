@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Event extends Model
 {
@@ -30,6 +31,7 @@ class Event extends Model
     		->where( 'date', '>=', $target_begin_date )
     		//処理月の終了日
     		->where( 'date', '<=', $target_end_date )
+    		->where('user_id',Auth::id())
     		//削除フラグ
     		//->where(  'alive', 1)
     		->get();
